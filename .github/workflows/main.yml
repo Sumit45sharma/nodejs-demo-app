@@ -43,12 +43,13 @@ jobs:
 
       # Step 5: Run tests
       - name: Run tests
-        run: npm test -- --forceExit
+        run: npm test -- --forceExit --detectOpenHandles --maxWorkers=2
+        timeout-minutes: 5
 
       # Step 6: Upload test coverage
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && hashFiles('coverage/**/*') != ''
         with:
           name: coverage-report
           path: coverage/
