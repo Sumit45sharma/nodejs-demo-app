@@ -1,10 +1,7 @@
-node_modules
-npm-debug.log
-.git
-.gitignore
-README.md
-.env
-.nyc_output
-coverage
-.cache
-
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
